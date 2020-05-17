@@ -1,0 +1,89 @@
+{
+  "name": "send-ngnt-dapp",
+  "version": "1.0.0",
+  "private": false,
+  "homepage": "https://sendngnt.com",
+  "dependencies": {
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/icons": "^4.9.1",
+    "@openzeppelin/gsn-provider": "^0.1.10",
+    "@portis/web3": "^2.0.0-beta.54",
+    "@sentry/browser": "^5.15.5",
+    "@toruslabs/torus-embed": "^1.4.3",
+    "@walletconnect/web3-provider": "^1.0.0-beta.47",
+    "axios": "^0.19.2",
+    "bignumber.js": "^9.0.0",
+    "formik": "^2.1.4",
+    "formik-material-ui": "^2.0.0-beta.1",
+    "fortmatic": "^2.0.6",
+    "mobx": "^5.15.4",
+    "mobx-react-lite": "^2.0.6",
+    "mobx-state-tree": "^3.16.0",
+    "mst-persist": "^0.1.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-ga": "^2.7.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.0",
+    "react-scroll": "^1.7.16",
+    "typescript": "~3.7.2",
+    "walletlink": "^2.0.2",
+    "web3": "^1.2.7",
+    "web3-core": "^1.2.7",
+    "web3-utils": "^1.2.7",
+    "yup": "^0.28.5"
+  },
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "npm run build:contracts && react-scripts start",
+    "build": "npm run build:contracts && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "build:contracts": "typechain --target web3-v1 --outDir ./src/modules/contracts/generated/ './src/modules/contracts/abi/*.json'"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router": "^5.1.5",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/react-scroll": "^1.5.5",
+    "@types/yup": "^0.28.1",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "source-map-explorer": "^2.4.2",
+    "ts-jest": "^24.2.0",
+    "typechain": "^2.0.0",
+    "typechain-target-web3-v1": "^1.0.4"
+  }
+}

@@ -1,0 +1,2 @@
+# ignore typechain generated files
+src/modules/contracts/generated/
