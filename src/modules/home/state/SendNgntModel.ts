@@ -290,7 +290,9 @@ export const SendNgntModel = types
             ReactGA.event({
               category: 'general',
               action: 'successful_transaction_amount',
-              value: parseInt(self.transferAmount, 10),
+              value: toBaseUnit(self.transferAmount)
+                .integerValue()
+                .toNumber(),
             });
             self.transferState = TransferState.COMPLETED;
           }
