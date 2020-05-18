@@ -108,13 +108,13 @@ export const Faq: React.FC = () => {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
-          expanded={expanded === 'panel5'}
-          onChange={handleChange('panel5')}
+          expanded={expanded === 'panel3'}
+          onChange={handleChange('panel3')}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel5bh-content"
-            id="panel5bh-header"
+            aria-controls="panel3bh-content"
+            id="panel3bh-header"
           >
             <Typography className={classes.heading}>
               Who is the fee for?
@@ -133,13 +133,13 @@ export const Faq: React.FC = () => {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
-          expanded={expanded === 'panel3'}
-          onChange={handleChange('panel3')}
+          expanded={expanded === 'panel4'}
+          onChange={handleChange('panel4')}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
+            aria-controls="panel4bh-content"
+            id="panel4bh-header"
           >
             <Typography className={classes.heading}>Is it safe?</Typography>
           </ExpansionPanelSummary>
@@ -154,17 +154,27 @@ export const Faq: React.FC = () => {
               >
                 about the platform here.
               </Link>
+              <br />
+              <br />
+              Also, the source code for the website is open on github at{' '}
+              <Link
+                href="https://github.com/perfectmak/SendNGNTDapp"
+                target="_blank"
+              >
+                https://github.com/perfectmak/SendNGNTDapp
+              </Link>{' '}
+              and its functionality can be verified.
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
-          expanded={expanded === 'panel4'}
-          onChange={handleChange('panel4')}
+          expanded={expanded === 'panel5'}
+          onChange={handleChange('panel5')}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
+            aria-controls="panel5bh-content"
+            id="panel5bh-header"
           >
             <Typography className={classes.heading}>
               How do I get my wallet supported?

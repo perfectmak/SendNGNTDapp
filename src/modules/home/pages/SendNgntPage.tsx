@@ -26,6 +26,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(15),
     marginBottom: theme.spacing(5),
   },
+  openSourceText: {
+    width: '100%',
+  },
+  openSourceLink: {
+    color: '#ffffff',
+  },
 }));
 
 const DEFAULT_FEES = 50;
@@ -139,6 +145,22 @@ export const SendNgntPage: React.FC<{}> = observer(() => {
             </CenteredPaper>
           </Grid>
           <Faq />
+          <Typography
+            align="center"
+            variant="subtitle2"
+            className={classes.openSourceText}
+          >
+            This dApp is Open Source. You can contribute to it{' '}
+            <a
+              href="https://github.com/perfectmak/SendNGNTDapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.openSourceLink}
+            >
+              on Github
+            </a>
+            .
+          </Typography>
           <Footer />
         </Grid>
       </Container>
