@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(3),
+      overflowWrap: 'anywhere',
     },
     title: {
       marginBottom: theme.spacing(2),
@@ -186,8 +187,8 @@ export const Faq: React.FC = () => {
               <Link href="https://twitter.com/SendNGNT" target="_blank">
                 @SendNGNT
               </Link>{' '}
-              or send us an email at sendngnt[at]perfects.engineering, and we
-              would work on getting it supported.
+              or send us an email at sendngnt[at]perfects[dot]engineering, and
+              we would work on getting it supported.
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
