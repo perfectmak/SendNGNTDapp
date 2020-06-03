@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface ProviderDisplayInfo {
   provider: SupportedProvider;
   icon: string;
-  name?: string; // if provider, will be used instead of supported provider name
+  name?: string; // if provided, will be used instead of SupportedProvider.name
 }
 
 interface LoginModalProps {

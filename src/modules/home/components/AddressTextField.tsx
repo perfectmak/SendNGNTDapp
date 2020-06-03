@@ -1,9 +1,21 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import MuiTextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import { fieldToTextField, TextFieldProps } from 'formik-material-ui';
+
+import QrIcon from '../assets/qr.svg';
+
+const useStyles = makeStyles({
+  qrIcon: {
+    width: '1em',
+  },
+});
 
 type AddressTextFieldProps = TextFieldProps & {
   defaulterror?: string;
+  onScanQrCodeClicked: () => void;
 };
 
 /**
@@ -11,9 +23,11 @@ type AddressTextFieldProps = TextFieldProps & {
  * and clear the defaultError message when the value of the textfield is changed.
  *
  */
-export const AddressTextField: React.FC<AddressTextFieldProps> = (
-  props: AddressTextFieldProps
-) => {
+export const AddressTextField: React.FC<AddressTextFieldProps> = ({
+  onScanQrCodeClicked,
+  ...props
+}: AddressTextFieldProps) => {
+  const classes = useStyles();
   const {
     form: { setFieldValue },
     field: { name },
@@ -42,6 +56,23 @@ export const AddressTextField: React.FC<AddressTextFieldProps> = (
       onChange={onChange}
       error={!!error}
       helperText={error}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="Scan QR Code Button"
+              onClick={onScanQrCodeClicked}
+              edge="end"
+            >
+              <img
+                src={QrIcon}
+                className={classes.qrIcon}
+                alt="scan QR code icon"
+              />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
     />
   );
 };

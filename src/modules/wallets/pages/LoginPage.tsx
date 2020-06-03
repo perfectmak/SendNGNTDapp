@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useSnackbar } from 'notistack';
 import { asWeb3Window } from '../web3/util';
 import { LoginModal, ProviderDisplayInfo } from '../components/LoginModal';
 import { SupportedProvider } from '../web3/types';
@@ -60,6 +61,7 @@ const DetectedWalletIcons = {
  */
 export const LoginPage: React.FC = observer(() => {
   const { walletStore } = useAppStore();
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [providersInfo, setProvidersInfo] = useState(
     SupportedProvidersDisplayInfo
@@ -92,12 +94,11 @@ export const LoginPage: React.FC = observer(() => {
         );
         walletStore.setWallet(wallet);
       } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert(err.message);
+        enqueueSnackbar(err.message);
         setLoading(false);
       }
     },
-    [walletStore]
+    [walletStore, enqueueSnackbar]
   );
 
   const onModalClosed = useCallback(() => {

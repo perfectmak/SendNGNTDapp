@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -9,6 +10,8 @@ import { TextField } from 'formik-material-ui';
 import * as Yup from 'yup';
 import { Ngnt } from './Ngnt';
 import { AddressTextField } from './AddressTextField';
+import { QrScannerDialog } from './QrScannerDialog';
+import { extractQrCodeAddress } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -61,7 +64,9 @@ export const SendNgntForm: React.FC<SendNgntFormProps> = ({
   recipientError,
   onSubmit,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
+  const [showQrScanner, setShowQrScanner] = useState(false);
   const handleSubmit = useCallback(
     (
       values: NgntFormFieldValues,
@@ -93,67 +98,91 @@ export const SendNgntForm: React.FC<SendNgntFormProps> = ({
   }
 
   return (
-    <Formik
-      key="send-ngnt-form"
-      initialValues={{
-        recipientAddress: '',
-        amount: '',
-      }}
-      onSubmit={handleSubmit}
-      validationSchema={SendFormSchema}
-    >
-      {(): JSX.Element => {
-        return (
-          <Paper elevation={3} className={classes.paper}>
-            <Form>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
-                  <Field
-                    id="amountField"
-                    label="Amount (NGNT)"
-                    name="amount"
-                    // type="number"
-                    component={TextField}
-                    className={classes.formControl}
-                    variant="outlined"
-                  />
+    <>
+      <Formik
+        key="send-ngnt-form"
+        initialValues={{
+          recipientAddress: '',
+          amount: '',
+        }}
+        onSubmit={handleSubmit}
+        validationSchema={SendFormSchema}
+      >
+        {(bag): JSX.Element => {
+          return (
+            <Paper elevation={3} className={classes.paper}>
+              <Form>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={3}>
+                    <Field
+                      id="amountField"
+                      label="Amount (NGNT)"
+                      name="amount"
+                      // type="number"
+                      component={TextField}
+                      className={classes.formControl}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Field
+                      id="recipientField"
+                      label="Receipients 0x Address or ENS"
+                      name="recipientAddress"
+                      component={AddressTextField}
+                      className={classes.formControl}
+                      variant="outlined"
+                      defaulterror={recipientError}
+                      onScanQrCodeClicked={(): void => setShowQrScanner(true)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <div className={classes.buttonWrapper}>
+                      <Button
+                        fullWidth
+                        className={classes.submitButton}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={isSubmitting}
+                      >
+                        SEND <Ngnt nolink />
+                      </Button>
+                      {isSubmitting && (
+                        <CircularProgress
+                          size={24}
+                          className={classes.buttonProgress}
+                        />
+                      )}
+                    </div>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <Field
-                    id="recipientField"
-                    label="Receipients 0x Address or ENS"
-                    name="recipientAddress"
-                    component={AddressTextField}
-                    className={classes.formControl}
-                    variant="outlined"
-                    defaulterror={recipientError}
-                  />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                  <div className={classes.buttonWrapper}>
-                    <Button
-                      fullWidth
-                      className={classes.submitButton}
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      disabled={isSubmitting}
-                    >
-                      SEND <Ngnt nolink />
-                    </Button>
-                    {isSubmitting && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
-                  </div>
-                </Grid>
-              </Grid>
-            </Form>
-          </Paper>
-        );
-      }}
-    </Formik>
+              </Form>
+              <QrScannerDialog
+                open={showQrScanner}
+                onClose={(): void => setShowQrScanner(false)}
+                onError={(err): void => {
+                  enqueueSnackbar(err.message, {
+                    variant: 'error',
+                  });
+                  setShowQrScanner(false);
+                }}
+                onScan={(result): void => {
+                  const validAddress = extractQrCodeAddress(result);
+                  if (validAddress) {
+                    bag.setFieldValue('recipientAddress', validAddress);
+                  } else {
+                    enqueueSnackbar(
+                      'Cannot read QRCode. Confirm it is an ETH address'
+                    );
+                  }
+                  setShowQrScanner(false);
+                }}
+              />
+            </Paper>
+          );
+        }}
+      </Formik>
+    </>
   );
 };

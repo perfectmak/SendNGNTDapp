@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router';
 import { HashRouter as Router } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { SnackbarProvider } from 'notistack';
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -28,18 +29,20 @@ const App: React.FC = observer(() => {
   const { walletStore } = useAppStore();
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={SendNgntPage} />
-          <Route path="*" is404={true}>
-            <div>404 Baby</div>
-          </Route>
-        </Switch>
-      </Router>
-      <Suspense fallback={<Loading />}>
-        {walletStore.showLogin && <LoginPage />}
-      </Suspense>
+      <SnackbarProvider maxSnack={1}>
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={SendNgntPage} />
+            <Route path="*" is404={true}>
+              <div>404 Baby</div>
+            </Route>
+          </Switch>
+        </Router>
+        <Suspense fallback={<Loading />}>
+          {walletStore.showLogin && <LoginPage />}
+        </Suspense>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 });
