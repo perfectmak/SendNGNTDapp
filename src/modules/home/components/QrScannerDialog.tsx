@@ -1,8 +1,15 @@
 import React, { useCallback } from 'react';
-import QrReader from 'react-qr-scanner';
+import QrReader from 'react-qr-reader';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import Fade from '@material-ui/core/Fade';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  scanner: {
+    width: '300px',
+  },
+}));
 
 interface QrScannerDialogProps {
   open: boolean;
@@ -12,7 +19,7 @@ interface QrScannerDialogProps {
 }
 
 export const QrScannerDialog: React.FC<QrScannerDialogProps> = props => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const onScan = useCallback(
     (result: string | null) => {
       if (result === null) {
@@ -35,17 +42,18 @@ export const QrScannerDialog: React.FC<QrScannerDialogProps> = props => {
     <Dialog
       open={props.open}
       onClose={props.onClose}
-      maxWidth="md"
+      // scroll="body"
+      maxWidth="xs"
       disableEnforceFocus
     >
       <Fade in={props.open}>
         <Grid container alignContent="center">
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12}>
             <QrReader
-              style={{ height: 200, width: 350 }}
               delay={500}
               onError={onError}
               onScan={onScan}
+              className={classes.scanner}
             />
           </Grid>
         </Grid>
