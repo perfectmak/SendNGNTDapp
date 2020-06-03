@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 interface TransferProgressDialogProps {
   visible: boolean;
   state: string;
+  network: string;
   onFinish: () => void;
   transactionHash?: string;
   error?: string;
@@ -65,6 +66,7 @@ const getStepContent = (
   classes: Record<'linearProgress' | 'txHashValue', string>,
   step: number,
   isFinished: boolean,
+  network: string,
   transactionHash?: string
 ): React.ReactElement => {
   switch (step) {
@@ -101,7 +103,7 @@ const getStepContent = (
             {transactionHash && (
               <strong>
                 <a
-                  href={getTxUrl(transactionHash)}
+                  href={getTxUrl(transactionHash, network)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -127,7 +129,7 @@ const getStepContent = (
           <Typography variant="caption" className={classes.txHashValue}>
             Hash:{' '}
             <a
-              href={getTxUrl(transactionHash || '')}
+              href={getTxUrl(transactionHash || '', network)}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -158,6 +160,7 @@ export const TransferProgressDialog: React.FC<TransferProgressDialogProps> = ({
   state,
   transactionHash,
   error,
+  network,
   onFinish,
 }) => {
   const classes = useStyles();
@@ -180,7 +183,13 @@ export const TransferProgressDialog: React.FC<TransferProgressDialogProps> = ({
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-                {getStepContent(classes, index, isFinished, transactionHash)}
+                {getStepContent(
+                  classes,
+                  index,
+                  isFinished,
+                  network,
+                  transactionHash
+                )}
                 {error && (
                   <>
                     <Typography className={classes.errorMessage}>

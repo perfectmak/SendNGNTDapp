@@ -16,6 +16,7 @@ import { TransferProgressDialog } from '../components/TransferProgressDialog';
 import { HeaderBar } from '../components/HeaderBar';
 import { CenteredPaper } from '../components/CenteredPaper';
 import { Footer } from '../components/Footer';
+import { getEnvNetwork } from '../../wallets/web3/networks';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,6 +94,7 @@ export const SendNgntPage: React.FC<{}> = observer(() => {
   return (
     <div className={classes.root}>
       <HeaderBar
+        network={getEnvNetwork()}
         loggedIn={walletStore.isLoggedIn}
         address={walletStore.address}
         onLogout={walletStore.logout}
@@ -139,6 +141,7 @@ export const SendNgntPage: React.FC<{}> = observer(() => {
                   state={sendNgntStore.transferState}
                   transactionHash={sendNgntStore.transactionHash}
                   error={sendNgntStore.transferError}
+                  network={walletStore.network}
                   onFinish={sendNgntStore.cancelTransfer}
                 />
               </Element>

@@ -17,11 +17,16 @@ export const fromBaseUnit = (
 export const wait = (ms = 1000): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms));
 
-export const getTxUrl = (txHash: string): string =>
-  `https://etherscan.io/tx/${txHash}`;
+const explorerUrl = (network: string): string =>
+  network === 'mainnet'
+    ? 'https://etherscan.io'
+    : `https://${network}.etherscan.io`;
 
-export const getAccountUrl = (address: string): string =>
-  `https://etherscan.io/token/${NGNT_ADDRESS}?a=${address}`;
+export const getTxUrl = (txHash: string, network: string): string =>
+  `${explorerUrl(network)}/tx/${txHash}`;
+
+export const getAccountUrl = (address: string, network: string): string =>
+  `${explorerUrl(network)}/token/${NGNT_ADDRESS}?a=${address}`;
 
 export const extractQrCodeAddress = (data: string): string | null => {
   const extractedAddress = data.replace('ethereum:', '').slice(0, 42);

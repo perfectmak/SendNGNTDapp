@@ -4,12 +4,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Chip from '@material-ui/core/Chip';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Link from '@material-ui/core/Link';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { getAccountUrl } from '../utils';
 import Logo from '../assets/logo.png';
+import { isNetworkTestnet } from '../../wallets/web3/networks';
+import { Web3Network } from '../../wallets/web3/types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,11 +34,12 @@ const useStyles = makeStyles(theme => ({
   titleContainer: {
     display: 'flex',
     alignItems: 'center',
-  }
+  },
 }));
 
 interface HeaderBarProps {
   loggedIn: boolean;
+  network: string;
   address?: string;
   onLogout?: () => void;
 }
@@ -43,6 +47,7 @@ interface HeaderBarProps {
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   loggedIn,
   address,
+  network,
   onLogout,
 }) => {
   const classes = useStyles();
@@ -70,9 +75,12 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
         <Toolbar>
           <Link href="/" className={classes.root}>
             <div className={classes.titleContainer}>
-              <img src={Logo} className={classes.logo} alt="logo"/>
+              <img src={Logo} className={classes.logo} alt="logo" />
               <Typography variant="h6" component="h1" className={classes.title}>
-                SendNGNT
+                SendNGNT{' '}
+                {isNetworkTestnet(network as Web3Network) && (
+                  <Chip size="small" label={network.toUpperCase()} />
+                )}
               </Typography>
             </div>
           </Link>
@@ -104,7 +112,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
               >
                 <MenuItem>
                   <Link
-                    href={getAccountUrl(address as string)}
+                    href={getAccountUrl(address as string, network)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
