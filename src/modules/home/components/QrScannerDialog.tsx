@@ -42,6 +42,7 @@ export const QrScannerDialog: React.FC<QrScannerDialogProps> = props => {
     <Dialog
       open={props.open}
       onClose={props.onClose}
+      // scroll="body"
       maxWidth="xs"
       disableEnforceFocus
     >
@@ -49,7 +50,6 @@ export const QrScannerDialog: React.FC<QrScannerDialogProps> = props => {
         <Grid container alignContent="center">
           <Grid item xs={12}>
             <QrReader
-              facingMode="user"
               delay={500}
               onError={onError}
               onScan={onScan}
