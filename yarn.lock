@@ -1891,13 +1891,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-qr-reader@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@types/react-qr-reader/-/react-qr-reader-2.1.3.tgz#cf3a27e7bde37a585a7baff8dbf242d1ebe70ddd"
-  integrity sha512-quTZl76whDvR+Xp87jh2roDbL6SC8Pzi8Ef59EP5RheobKZWQBbcDM33r7/Ndi63NBOz89MEDtkiHDkAvXxPhg==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-router-dom@^5.1.3":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.5.tgz#7c334a2ea785dbad2b2dcdd83d2cf3d9973da090"
@@ -5927,10 +5920,10 @@ eth-lib@^0.1.26:
     ws "^3.0.0"
     xhr-request-promise "^0.1.2"
 
-eth-qr-scanner@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eth-qr-scanner/-/eth-qr-scanner-1.0.0.tgz#059e36865e34779e7105424f93d163f666c104a3"
-  integrity sha512-snlW3XesGR7wh+0ZiAO4zV3EOW0sWGy8hPtjJWiOBpLKSPajINfRWJ98kkmsSoeei2yX6K6hRVonWv5v2Mfx2Q==
+eth-qr-scanner@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eth-qr-scanner/-/eth-qr-scanner-1.1.0.tgz#6ddcc2faa306c9e5131a7dbdee0658ecdde3de0e"
+  integrity sha512-4SiIpoi8VMFmrqvPE34/nY2yKRGn1O5iXiUOYYNr5nAlr83+Wpz4LI5hVAFqIAj4VwnOiLZorlxEWIoM8xD8WA==
   dependencies:
     jsqr "^1.2.0"
     prop-types "^15.7.2"
