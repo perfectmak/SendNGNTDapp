@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import ReactGA from 'react-ga';
 import { types, flow, getEnv } from 'mobx-state-tree';
 import { PromiEvent, TransactionReceipt } from 'web3-core';
 import * as Sentry from '@sentry/browser';
@@ -16,6 +15,8 @@ import {
   isAddress,
   getGasPrice,
 } from '../../wallets/web3/util';
+
+declare const plausible: (event: string) => void;
 
 /**
  * Represents the state for the whole SendNgntPage
@@ -200,15 +201,7 @@ export const SendNgntModel = types
 
         self.transactionHash = yield new Promise((resolve, reject) => {
           txEvent.on('transactionHash', txHash => {
-            ReactGA.event({
-              category: 'general',
-              action: 'transaction_submitted',
-            });
-            ReactGA.event({
-              category: 'general',
-              action: 'transaction_amount',
-              value: baseTransferAmount.integerValue().toNumber(),
-            });
+            plausible('Transaction Submitted');
             resolve(txHash);
           });
 
@@ -222,16 +215,8 @@ export const SendNgntModel = types
         self.transferState = TransferState.AWAITING_CONFIRMATION;
         yield txEvent;
         self.transferState = TransferState.COMPLETED;
-
-        ReactGA.event({
-          category: 'general',
-          action: 'successful_transaction_amount',
-          value: baseTransferAmount.integerValue().toNumber(),
-        });
-        ReactGA.event({
-          category: 'general',
-          action: 'successful_transaction_submitted',
-        });
+        // eslint-disable-next-line no-undef
+        plausible('Successful Transaction');
       } catch (err) {
         // special error handling for trustwallet (and possibly other wallets)
         // because of provider re-submitting after relayer may have submitted
@@ -283,17 +268,7 @@ export const SendNgntModel = types
           if (!receipt.status) {
             self.transferError = 'Transaction failed';
           } else {
-            ReactGA.event({
-              category: 'general',
-              action: 'successful_transaction_submitted',
-            });
-            ReactGA.event({
-              category: 'general',
-              action: 'successful_transaction_amount',
-              value: toBaseUnit(self.transferAmount)
-                .integerValue()
-                .toNumber(),
-            });
+            plausible('Successful Transaction');
             self.transferState = TransferState.COMPLETED;
           }
           break;

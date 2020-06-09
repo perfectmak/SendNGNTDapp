@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ReactGA from 'react-ga';
 import { scroller, Element } from 'react-scroll';
 import { observer } from 'mobx-react-lite';
 import Grid from '@material-ui/core/Grid';
@@ -42,10 +41,6 @@ export const SendNgntPage: React.FC<{}> = observer(() => {
   const { sendNgntStore, walletStore } = useAppStore();
   const [bannerFees, setBannerFees] = useState(DEFAULT_FEES);
   const { showTransfer, triggerTransactionWatch } = sendNgntStore;
-
-  useEffect(() => {
-    ReactGA.pageview('/');
-  }, []);
 
   useEffect(() => {
     setBannerFees(parseFloat(sendNgntStore.transferFees) || DEFAULT_FEES);

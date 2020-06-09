@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import 'mobx-react-lite/batchingForReactDom';
 import './index.css';
@@ -11,13 +10,6 @@ import { createStore, AppStoreProvider } from './store';
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
 });
-
-if (process.env.REACT_APP_GA_UA_ID) {
-  ReactGA.initialize(process.env.REACT_APP_GA_UA_ID, {
-    debug: process.env.NODE_ENV === 'development',
-    titleCase: false,
-  });
-}
 
 const appStore = createStore();
 
