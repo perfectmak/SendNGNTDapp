@@ -27,12 +27,3 @@ export const getTxUrl = (txHash: string, network: string): string =>
 
 export const getAccountUrl = (address: string, network: string): string =>
   `${explorerUrl(network)}/token/${NGNT_ADDRESS}?a=${address}`;
-
-export const extractQrCodeAddress = (data: string): string | null => {
-  const extractedAddress = data.replace('ethereum:', '').slice(0, 42);
-  if (!/^0x[a-fA-F0-9]{40}$/g.test(extractedAddress)) {
-    return null;
-  }
-
-  return extractedAddress;
-};

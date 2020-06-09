@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import QrReader from 'react-qr-reader';
+import QrReader from 'eth-qr-scanner';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import Fade from '@material-ui/core/Fade';

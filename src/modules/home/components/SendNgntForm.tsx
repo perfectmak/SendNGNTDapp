@@ -11,7 +11,6 @@ import * as Yup from 'yup';
 import { Ngnt } from './Ngnt';
 import { AddressTextField } from './AddressTextField';
 import { QrScannerDialog } from './QrScannerDialog';
-import { extractQrCodeAddress } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -167,8 +166,7 @@ export const SendNgntForm: React.FC<SendNgntFormProps> = ({
                   });
                   setShowQrScanner(false);
                 }}
-                onScan={(result): void => {
-                  const validAddress = extractQrCodeAddress(result);
+                onScan={(validAddress): void => {
                   if (validAddress) {
                     bag.setFieldValue('recipientAddress', validAddress);
                   } else {
