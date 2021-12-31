@@ -30,7 +30,7 @@ const SupportedProvidersDisplayInfo: ProviderDisplayInfo[] = [
   {
     provider: SupportedProvider.WalletConnect,
     icon: WalletConnectIcon,
-    name: 'Scan QR Code',
+    name: 'Wallet Connect',
   },
   {
     provider: SupportedProvider.Fortmatic,
