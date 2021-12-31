@@ -24,3 +24,7 @@ yarn-error.log*
 
 # ignore typechain generated files
 src/modules/contracts/generated
+
+# Ignore ide specific files
+.code
+.idea
